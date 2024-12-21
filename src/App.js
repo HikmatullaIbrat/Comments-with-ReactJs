@@ -1,12 +1,12 @@
 // import logo from './logo.svg';
 // import './App.css';
 // import faker from 'faker';
-import { faker } from '@faker-js/faker';
+import CommentDetails from './CommentDetails';
+import ApprovalCard from './ApprovalCard';
 
-
-function getTime(){
-  return (new Date()).toLocaleTimeString()
-}
+// function getTime(){
+//   return (new Date()).toLocaleTimeString()
+// }
 
 function App() {
   return (
@@ -18,23 +18,24 @@ function App() {
     //   </header>
     // </div>
 
-    <div className="ui container comments">
-      <div className="comment">
-        <a href="/" className="avatar">
-          <img src={faker.image.avatar()} class="" alt="avatar"  />
-        </a>
+   
+    <div>
+        <ApprovalCard >
+          <CommentDetails name="Hikmat" date="Today 4:00 p.m." text="Beautiful Pic" />
+        </ApprovalCard> 
 
-        <div className="content">
-          <a href="/" className="author">
-            Sam
-          </a>
-          <div className="metadata">
-            <span className="date" >Today at 6:00 p.m.</span>
-          </div>
-          <div className="text">Nice Blog Post!</div>
-        </div>
-      </div>
+        
+        <ApprovalCard >
+          <CommentDetails name="Haleem" date="Today 8:00 p.m." text="Nice Pic" />
+        </ApprovalCard>
+
+        
+        <ApprovalCard >
+          <CommentDetails name="Hamad" date="Today 4:00 p.m." text="Georgous Pic" />
+        </ApprovalCard>
+
     </div>
+
 
 
   );
