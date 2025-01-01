@@ -7,6 +7,8 @@ import AssignmentWork from './AssignmentWork';
 import AssignmentWork2 from './AssignmentWork2';
 import ReactDOM from 'react-dom';
 import React from 'react';
+import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 // function getTime(){
 //   return (new Date()).toLocaleTimeString()
@@ -15,12 +17,25 @@ import React from 'react';
 // Class component
 class App extends React.Component{
 
-  constructor(props){
-    super(props);
+    state = {lat:-34.382, errorMessage: "No Latitude value available"};
 
-    // creating state object within class component
-    //This is the only time we do direct assignment to this.state, instead we should use setState
-    this.state = {lat: 3993.38, errorMessage: 'Latitude doesnt exist'};
+
+    // the upper line state is equivalent to the lower whole constructor therefore we cleaned the consturctor
+  // constructor(props){
+  //   super(props);
+
+  //   // creating state object within class component
+  //   //This is the only time we do direct assignment to this.state, instead we should use setState
+  //   this.state = {lat:null, errorMessage: 'Latitude doesnt exist'};
+
+    
+  // }
+
+    // usage of component did mount
+  componentDidMount(){
+
+    // we have shown lat value where we set it manually, because to show result even if this is no internet
+    const manuallySetLat = this.state.lat;
 
     window.navigator.geolocation.getCurrentPosition(
       // position => console.log(position),
@@ -35,8 +50,15 @@ class App extends React.Component{
       },
       err => {
         this.setState({errorMessage: err.message});
+        }
+
+    ); // end of window.navigator.geolocation.getCurrentPosition
+    
+    // Optional: if you want to keep using the manually set latitude in case of error
+    if(!this.state.lat || this.state.errorMessage){
+      this.setState({ lat: manuallySetLat});
     }
-    );
+      
   }
 
 
@@ -48,13 +70,15 @@ class App extends React.Component{
     }
     // latitude value was existed
     if (this.state.errorMessage && this.state.lat){
-      return <div>Latitude: {this.state.lat}</div>;
+      // return <div>Latitude: {this.state.lat}</div>;
+      
+
+      // to pass state as props
+      return <SeasonDisplay lat={this.state.lat} />
     }
   
     // if both were not existed, or value was in loading
-    return(
-      <div>Loading!</div>
-    );
+    return <Spinner message="Please accept location request, if you asked for, else wait..."/>;
      
   }
 }
