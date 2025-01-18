@@ -19,38 +19,48 @@ import axios from 'axios';
 // making a Searchbar component and after searching it will bring the things from an API
 
 class App extends React.Component{
-  onSearchSubmit(term){
-    axios.get('https://api.usnplash.com/search/photos',{
-      // params: specifies the different query string parameters, so we want to add into the request
-      params: {query:term},
-      headers: {
-        Authorization: 'Client-ID S51ZjwzqiDBew5BSfVYa_mHU3K0bqTDoK1P8KtkgnyM'
-      }
-      // and to make sure that request is issued on browser, just go to inspect->network
-    }).then(response =>{
-      // response will fetch data from API
-      console.log(response.data.results);
-    })
-  }
+  state = {images: []};
+  // onSearchSubmit(term){
+  //   axios.get('https://api.usnplash.com/search/photos',{
+  //     // params: specifies the different query string parameters, so we want to add into the request
+  //     params: {query:term},
+  //     headers: {
+  //       Authorization: 'Client-ID S51ZjwzqiDBew5BSfVYa_mHU3K0bqTDoK1P8KtkgnyM'
+  //     }
+  //     // and to make sure that request is issued on browser, just go to inspect->network
+  //   }).then(response =>{
+  //     // response will fetch data from API
+  //     console.log(response);
+  //   });
+  // }
   
   // onSearchSubmit is not built-in but it well be called in Searchbar component by the help of this line:
   //  this.props.onSubmit(this.state.term); at onFormSubmit() 
 
   // to fetch data we should use async or then keyword on above onSearchSubmit which commented we used then, and in below we used async
-  // onSearchSubmit = async (term) => 
-  //   { try {
-  //      const response = await axios.get('https://api.unsplash.com/search/photos',
-  //       { params: { query: term }, headers: { Authorization: 'Client-ID S51ZjwzqiDBew5BSfVYa_mHU3K0bqTDoK1P8KtkgnyM' } });
-  //        console.log(response.data.results);
-  //        } catch (error) { console.error("Error fetching data:", error); 
 
-  //        } 
-  // };
+  onSearchSubmit = async (term) => 
+    { try {
+       const response = await axios.get('https://api.unsplash.com/search/photos',
+        { 
+         params: { query: term },
+         headers: { Authorization: 'Client-ID S51ZjwzqiDBew5BSfVYa_mHU3K0bqTDoK1P8KtkgnyM' }
+        });
+        // the collection of data which is returned by axios api
+         console.log(response.data.results);
+         this.setState({images: response.data.results});
+         } 
+      catch (error) { console.error("Error fetching data:", error); 
+
+         } 
+        
+  };
 
   render(){
     return(
       <div className="ui container" style={{marginTop: '10px'}}>
         <Searchbar onSubmit={this.onSearchSubmit}/>
+        Found: {this.state.images.length} images
         {/* <PasswordValidator /> */}
       </div>
     );
