@@ -12,14 +12,22 @@ import PasswordValidator from './components/PasswordValidator';
 import axios from 'axios';
 // import SeasonDisplay from './SeasonDisplay';
 // import Spinner from './Spinner';
+import ImageList from './components/ImageList';
 
 
 // Handling User Inputs with forms and events
 
 // making a Searchbar component and after searching it will bring the things from an API
+const users = [
+  {id:1, name:"hikmatullah"},
+  {id:2, name:"Edrees"},
+  {id:3, name:"Raheem"},
+  {id:4, name:"Zamir Kabiri"},
 
+];
 class App extends React.Component{
   state = {images: []};
+ 
   // onSearchSubmit(term){
   //   axios.get('https://api.usnplash.com/search/photos',{
   //     // params: specifies the different query string parameters, so we want to add into the request
@@ -60,7 +68,8 @@ class App extends React.Component{
     return(
       <div className="ui container" style={{marginTop: '10px'}}>
         <Searchbar onSubmit={this.onSearchSubmit}/>
-        Found: {this.state.images.length} images
+        {/* Found: {this.state.images.length} images */}
+        <ImageList images_prop = {this.state.images} />
         {/* <PasswordValidator /> */}
       </div>
     );
