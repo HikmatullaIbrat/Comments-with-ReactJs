@@ -13,6 +13,7 @@ import axios from 'axios';
 // import SeasonDisplay from './SeasonDisplay';
 // import Spinner from './Spinner';
 import ImageList from './components/ImageList';
+import UsersList from './components/UsersList';
 
 
 // Handling User Inputs with forms and events
@@ -67,10 +68,12 @@ class App extends React.Component{
   render(){
     return(
       <div className="ui container" style={{marginTop: '10px'}}>
-        <Searchbar onSubmit={this.onSearchSubmit}/>
+        <Searchbar onSubmit={this.onSearchSubmit}/> 
         {/* Found: {this.state.images.length} images */}
-        <ImageList images_prop = {this.state.images} />
+         <ImageList images_prop = {this.state.images} />
         {/* <PasswordValidator /> */}
+        <UsersList all_users = {users} />
+        {/* console.log(users.) */}
       </div>
     );
   }
